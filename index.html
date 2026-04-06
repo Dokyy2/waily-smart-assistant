@@ -21,7 +21,6 @@ body {
     margin: 0;
     direction: rtl;
     font-family: 'Cairo', sans-serif;
-    /* خلفية متحركة رقمية */
     background: linear-gradient(-45deg, #0f172a, #1e293b, #2563eb, #1e293b);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
@@ -38,7 +37,6 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* انيميشن ظهور الصفحة */
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -59,7 +57,6 @@ body {
     animation: slideUp 0.8s ease-out;
 }
 
-/* Header مع تأثير نبض رقمي */
 .header {
     padding: 20px;
     text-align: center;
@@ -78,7 +75,6 @@ body {
     background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
 }
 
-/* Chat Area */
 .chat-area {
     flex: 1;
     overflow-y: auto;
@@ -89,7 +85,6 @@ body {
     background: rgba(248, 250, 252, 0.4);
 }
 
-/* انيميشن الرسائل */
 @keyframes msgPop {
     from { opacity: 0; transform: scale(0.9) translateY(10px); }
     to { opacity: 1; transform: scale(1) translateY(0); }
@@ -141,7 +136,6 @@ body {
     box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
 }
 
-/* Input Area */
 .input-group {
     display: flex;
     padding: 20px;
@@ -173,7 +167,6 @@ button {
     cursor: pointer;
     font-weight: 700;
     transition: 0.3s;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
 button:hover {
@@ -181,7 +174,6 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Typing Animation */
 .typing {
     display: flex;
     gap: 4px;
@@ -197,7 +189,6 @@ button:hover {
 
 @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-/* Scrollbar */
 .chat-area::-webkit-scrollbar { width: 4px; }
 .chat-area::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 </style>
@@ -208,46 +199,60 @@ button:hover {
 <div class="chat-container">
 
     <div class="header">
-        🤖 المساعد الرقمي - منطقة الوايلي
+        🤖 المساعد الرقمي - الدمرداش والوايلي
     </div>
 
     <div id="chatArea" class="chat-area">
         <div class="msg bot-msg">
             أهلاً بك 👋<br>
-            معاك المساعد الذكي لمكاتب الصحة.. اكتب سؤالك وهرد عليك فوراً.
+            أنا هنا لمساعدتك في الوصول لخدمات مكتب صحة الدمرداش ومنطقة الوايلي. عن ماذا تبحث اليوم؟
         </div>
     </div>
 
     <div class="input-group">
-        <input id="userInput" placeholder="اسأل عن مواليد، وفيات، تطعيمات..." autocomplete="off">
+        <input id="userInput" placeholder="اسأل عن المواليد، التطعيمات، أو الطوارئ..." autocomplete="off">
         <button onclick="handleSend()">إرسال</button>
     </div>
 
 </div>
 
 <script>
-// (نفس المنطق البرمجي الخاص بك مع تحسين بسيط في عرض الـ Typing)
-
+// ترتيب الخدمات وتوسيع الكلمات المفتاحية بناءً على الصورة والمطلوب
 const services = {
-    "تسجيل شهادات الميلاد": {
-        keywords: ["ميلاد","مولود","نونو","طفل","شهادة ميلاد","ميلتاد","بيبي","خلفنا","رزقنا"],
-        link: "#"
+    "دليل الخدمات الكامل": {
+        keywords: ["دليل", "خدمات", "كل الخدمات", "قائمة", "الخدمات المتاحة"],
+        link: "https://drive.google.com/file/d/1Vgg5HS4-OeyBYbDJtl7jxRPZU8C2r_8R/view?usp=drive_link",
+        msg: "إليك الدليل الكامل لجميع الخدمات الصحية المتاحة بمنطقة الوايلي:"
     },
-    "تسجيل شهادات الوفاة": {
-        keywords: ["وفاة","مات","توفى","الميت","دفن","وفاه","تصريح","ترب"],
-        link: "#"
+    "المستشفيات التابعة": {
+        keywords: ["مستشفى", "مستشفيات", "قريب مني", "دكتور", "كشف", "عيادة"],
+        link: "https://drive.google.com/file/d/1MELxONHRA8vLlynKibvUyzlb3aH-by5U/view?usp=drive_link",
+        msg: "يمكنك العثور على أقرب مستشفى تابع لمنطقة الوايلي من الرابط التالي:"
     },
-    "التطعيمات": {
-        keywords: ["تطعيم","حقنة","مصل","تطيم","شلل","الصحة","حقنه"],
-        link: "#"
+    "تسجيل المواليد": {
+        keywords: ["ميلاد", "مولود", "نونو", "طفل", "شهادة ميلاد", "خلفنا", "بيبي", "رزقنا"],
+        link: "https://drive.google.com/file/d/1bvjnKzITfH2p3HZO4e1V8aJ-f2zSxj7I/view?usp=drive_link",
+        msg: "🎉 <b>ألف مبروك المولود الجديد!</b><br>جعل الله قدومه قدوم خير. إليك رابط إجراءات تسجيل الشهادة:"
     },
-    "الجلدية": {
-        keywords: ["جلدية","هرش","حساسية","جلد","كشف جلد","حبوب"],
-        link: "#"
+    "تسجيل الوفيات": {
+        keywords: ["وفاة", "مات", "توفى", "الميت", "دفن", "وفاه", "تصريح دفن", "شهادة وفاة"],
+        link: "https://drive.google.com/file/d/1SCFZrjN86Hv1j98A51VWm_vCHnXpyvKd/view?usp=sharing",
+        msg: "🙏 <b>البقاء لله..</b><br>ساعدنا الله على تسهيل إجراءاتكم في هذا الوقت الصعب. إليك دليل الإجراءات:"
     },
-    "الاستفسارات": {
-        keywords: ["مواعيد","عنوان","فين","المكتب","شغالين","ساعة"],
-        link: "#"
+    "تنمية الأسرة": {
+        keywords: ["تنمية", "اسرة", "تنظيم", "منع حمل", "وسيلة", "نسا", "لولب"],
+        link: "https://drive.google.com/file/d/1_IpgW0VgJwO9ngBtpCP1f2kHr33SUtGb/view?usp=drive_link",
+        msg: "نحن نهتم بصحة الأسرة. يمكنك التعرف على خدمات تنظيم الأسرة وتنمية المجتمع هنا:"
+    },
+    "جدول التطعيمات": {
+        keywords: ["تطعيم", "حقنة", "مصل", "شلل", "الصحة", "تطيم", "تطعيمات"],
+        link: "https://drive.google.com/file/d/1ow8nktNnNExt09HKofaxeWNIMEwW9x5G/view?usp=drive_link",
+        msg: "للحفاظ على صحة أطفالنا، إليك جدول التطعيمات الدورية ومواعيدها:"
+    },
+    "خدمات الطوارئ": {
+        keywords: ["طوارئ", "اجازة", "عطلة", "جمعة", "عيد", "مش شغالين", "اروح فين"],
+        link: "https://sites.google.com/view/wailyemergency", // ضع لينك المنصة المنفصلة هنا
+        msg: "🚨 <b>خدمة طوارئ العطلات:</b><br>في حال كانت المكاتب في عطلة رسمية، يمكنك التوجه للمراكز البديلة الموضحة في المنصة التالية:"
     }
 };
 
@@ -262,11 +267,15 @@ function similarity(a, b) {
 function detectService(text) {
     text = text.toLowerCase();
     let words = text.split(" ");
+    
+    // فحص مباشر بالكلمات المفتاحية
     for (let service in services) {
         for (let key of services[service].keywords) {
             if (text.includes(key)) return service;
         }
     }
+    
+    // فحص بالتشابه لزيادة الذكاء
     let bestMatch = null;
     let bestScore = 0;
     for (let service in services) {
@@ -283,16 +292,6 @@ function detectService(text) {
     return bestScore > 0.5 ? bestMatch : null;
 }
 
-function getResponse(service) {
-    if (service === "تسجيل شهادات الميلاد") {
-        return `🎉 <b>ألف مبروك المولود الجديد!</b><br>تقدر تبدأ إجراءات تسجيل شهادة الميلاد من هنا: <br><a href="#" class="btn-link">عرض الأوراق المطلوبة</a>`;
-    }
-    if (service === "تسجيل شهادات الوفاة") {
-        return `🙏 <b>البقاء لله..</b><br>ساعدنا الله على تسهيل إجراءاتكم. إليك دليل استخراج تصاريح الدفن والشهادة:<br><a href="#" class="btn-link">دليل الإجراءات</a>`;
-    }
-    return `✅ بخصوص <b>${service}</b>، تفضل بالاطلاع على التفاصيل من هنا:<br><a href="#" class="btn-link">فتح الرابط</a>`;
-}
-
 function handleSend() {
     let input = document.getElementById("userInput");
     let text = input.value.trim();
@@ -304,13 +303,15 @@ function handleSend() {
 
     setTimeout(() => {
         removeTyping();
-        let service = detectService(text);
-        if (service) {
-            addMessage(getResponse(service), "bot");
+        let serviceName = detectService(text);
+        if (serviceName) {
+            let s = services[serviceName];
+            let response = `${s.msg}<br><a href="${s.link}" class="btn-link">فتح الخدمة: ${serviceName}</a>`;
+            addMessage(response, "bot");
         } else {
-            addMessage("🤔 عذراً، لم أفهم طلبك جيداً.. هل تقصد الاستفسار عن المواليد أو التطعيمات؟", "bot");
+            addMessage("🤔 عذراً، لم أفهم طلبك تماماً. هل تبحث عن (تطعيمات، تسجيل مواليد، أو خدمات الطوارئ)؟", "bot");
         }
-    }, 1500);
+    }, 1200);
 }
 
 function addMessage(text, type) {
