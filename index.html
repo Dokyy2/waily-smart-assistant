@@ -171,7 +171,7 @@ const services = {
         text-decoration:underline;
     "
 >
-    باســـــم (للتواصــــل)
+    <br>باسم أشرف (للتواصـل)<br>
 </span>
 
 جرب تكتب الخدمة اللي محتاجها 👇
@@ -384,7 +384,7 @@ function handleSend() {
         } else if (matches.length === 1) {
             selectService(matches[0].name, text);
         } else {
-            addMessage(`👉 "ممكن توضحلي أكتر علشان أقدر أساعدك بشكل أدق؟ 🤍" .. <br><button class="all-services-btn" onclick="showAllServices()">📋 اضغط هنا لعرض كل الخدمات</button>`, "bot");
+            addMessage(`👉 "ممكن توضحلي أكتر علشان أساعدك بشكل أدق؟ 🤍" .. <br><button class="all-services-btn" onclick="showAllServices()">📋 اضغط هنا لعرض كل الخدمات</button>`, "bot");
         }
     }, 1000);
 }
@@ -456,10 +456,10 @@ function showContact() {
 
     المطور: باســم<br><br>
 
-    📞 Whatapp : 01021708011<br>
-    📧 Email: Dokyy2@gmail.com<br><br>
+    🟢 <a href="https://wa.me/201021708011" target="_blank" style="color:#2563eb; text-decoration:none; font-weight:600;">WhatsApp: 01021708011</a><br>
+    📧 <a href="mailto:Dokyy2@gmail.com" style="color:#2563eb; text-decoration:none; font-weight:600;">Email: Dokyy2@gmail.com</a><br><br>
 
-    🤍 لو عندك اقتراح أو محتاج مساعدة سيبلي رسالة
+    🤍 لو عندك اقتراح أو محتاج مساعدة سيبلي رسالة على الوتس اب 
     `;
 
     addMessage(msg, "bot", "about-card");
