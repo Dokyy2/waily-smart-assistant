@@ -150,7 +150,7 @@ const services = {
         keywords: [
             "اعرفني", "من انت", "مين انت", "بتعمل ايه", 
             "بتساعد في ايه", "انت ايه", "انت مين", 
-            "تعريف", "مين اللي عاملك", "انت تبع مين"
+            "عن المساعد", "مين اللي عاملك", "انت تبع مين"
         ],
         link: null,
        msg: `
@@ -164,9 +164,15 @@ const services = {
 تم تطويري بواسطة<br>
 <span 
     onclick="showContact()" 
-    style="color:#2563eb; font-weight:700; cursor:pointer;">
-    باســم
-</span><br><br>
+    style="
+        color:#2563eb;
+        font-weight:700;
+        cursor:pointer;
+        text-decoration:underline;
+    "
+>
+    باســـــم (للتواصــــل)
+</span>
 
 جرب تكتب الخدمة اللي محتاجها 👇
 `
@@ -444,6 +450,21 @@ function removeTyping() {
     if (t) t.remove(); 
 }
 
+function showContact() {
+    const msg = `
+    👨‍💻 <b>التواصل</b><br><br>
+
+    المطور: باســم<br><br>
+
+    📞 Whatapp : 01021708011<br>
+    📧 Email: Dokyy2@gmail.com<br><br>
+
+    🤍 لو عندك اقتراح أو محتاج مساعدة سيبلي رسالة
+    `;
+
+    addMessage(msg, "bot", "about-card");
+}
+    
 // وظيفة ظهور رسالة الترحيب بشكل مبهر عند فتح الصفحة مباشرة
 window.onload = function() {
     setTimeout(() => {
