@@ -123,18 +123,33 @@ button#sendBtn { background: var(--primary-color); color: white; border: none; b
 
 <div class="chat-container">
     <div class="header">🤖 المساعد الذكي - مكاتب الصحة</div>
+    
     <div id="chatArea" class="chat-area">
         <div class="msg bot-msg">
-            <br> مرحبًا بك في دليل مكاتب الصحة 🤝<br>
-دليلك في مكاتب الصحة جاهز يساعدك تعرف الإجراءات والأوراق المطلوبة بسهولة وبخطوات واضحة<br>
-اكتب الخدمة اللي محتاجها وابدأ فورًا أو اكتب "اعرفني" لو حابب تعرف اقدر اساعدك في ايه 👇<br><br>
-</div>
+            👋 أهلاً بيك<br><br>
+
+            لو محتار تبدأ منين أو مش عارف الإجراءات تمشي إزاي… أنا هنا علشان أساعدك 🤍<br><br>
+
+            💬 قولّي عايز تعمل إيه<br>
+            وأنا هقولك تعمل إيه خطوة خطوة بشكل بسيط وواضح<br><br>
+
+            ✨ <b>جرب تكتب دلوقتي:</b><br>
+            <span style="color:#2563eb; font-weight:700;">
+            "عايز أطلع شهادة ميلاد"
+            </span><br><br>
+
+            🔹 خدمات تقدر تسأل عنها:<br>
+            التطعيمات - الوفاة - تنمية الأسرة
+        </div>
     </div>
+
     <div class="input-group">
-        <input id="userInput" placeholder="تقدر تكتب زى (الخدمات - المواليد – الوفيات – التطعيم) " autocomplete="off">
+        <input id="userInput" 
+               placeholder="مثال: عايز أعرف ورق الوفاة" 
+               autocomplete="off">
         <button id="sendBtn" onclick="handleSend()">إرسال</button>
     </div>
-</div>
+</div></div>
 
 <script>
 const services = {
