@@ -365,7 +365,7 @@ function detectServices(text) {
 
     if (results.length > 1) {
         const topScore = results[0].score;
-        return results.filter(r => r.score >= topScore * 0.9);
+        return results.filter(r => r.score >= topScore * 0.7);
     }
 
     return results;
