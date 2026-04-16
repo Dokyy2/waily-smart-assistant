@@ -374,11 +374,21 @@ function detectServices(text) {
 function quickSend(text) {
     const input = document.getElementById("userInput");
     input.value = text;
+
     const matches = detectServices(text);
+
     if (matches.length > 0) {
-        // نمرر true لكي تظهر جملة المستخدم في الشات
-        selectService(matches[0].name, text, true);
+        // يظهر النص زي ما المستخدم ضغطه (زر)
+        addMessage(text, "user");
+
+        showTyping();
+
+        setTimeout(() => {
+            removeTyping();
+            selectService(matches[0].name, text);
+        }, 600);
     }
+
     input.value = "";
 }
 
