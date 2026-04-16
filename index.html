@@ -324,7 +324,7 @@ function detectServices(text) {
 
     // الطوارئ كإضافة مش بديل
     if (["جمعه", "عيد", "اجازه", "طوارئ"].some(w => normText.includes(w))) {
-        results.push({ name: "خدمات الطوارئ", score: 80 });
+        results.push({ name: "خدمات الطوارئ", score: 150 });
     }
 
     for (let s in services) {
@@ -365,7 +365,7 @@ function detectServices(text) {
 
     if (results.length > 1) {
         const topScore = results[0].score;
-        return results.filter(r => r.score >= topScore * 0.7);
+        return results.filter(r => r.score >= topScore * 0.5);
     }
 
     return results;
