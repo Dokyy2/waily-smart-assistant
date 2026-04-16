@@ -412,7 +412,7 @@ function handleSend() {
 function selectService(name, originalText, fromButton = false) {
     // 👇 نعرض رسالة user بس لو جاية من زر
     if (fromButton) {
-    addMessage("تمام، عايز " + name, "user");
+    addMessage(name, "user");
 }
     
     const s = services[name];
