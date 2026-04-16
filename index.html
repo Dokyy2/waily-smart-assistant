@@ -320,21 +320,25 @@ function detectServices(text) {
     const normText = normalize(text);
     if (!normText) return [];
 
+    let results = [];
+
+    // الطوارئ كإضافة مش بديل
     if (["جمعه", "عيد", "اجازه", "طوارئ"].some(w => normText.includes(w))) {
-        return [{ name: "خدمات الطوارئ", score: 80 }];
+        results.push({ name: "خدمات الطوارئ", score: 80 });
     }
 
-    let results = [];
     for (let s in services) {
         let score = 0;
         let hasExactMatch = false;
 
         services[s].keywords.forEach(key => {
             const normKey = normalize(key);
+
             if (normText.includes(normKey)) {
-                score += 100; 
+                score += 100;
                 hasExactMatch = true;
             }
+
             if (!hasExactMatch) {
                 normText.split(" ").forEach(word => {
                     if (word.length >= 4) {
@@ -346,20 +350,36 @@ function detectServices(text) {
                 });
             }
         });
-        if (score > 0) results.push({ name: s, score: score });
+
+        if (score > 0) {
+            let existing = results.find(r => r.name === s);
+            if (existing) {
+                existing.score += score;
+            } else {
+                results.push({ name: s, score: score });
+            }
+        }
     }
+
     results.sort((a, b) => b.score - a.score);
+
     if (results.length > 1) {
         const topScore = results[0].score;
         return results.filter(r => r.score >= topScore * 0.9);
     }
+
     return results;
 }
 
 function quickSend(text) {
     const input = document.getElementById("userInput");
     input.value = text;
-    handleSend();
+    const matches = detectServices(text);
+    if (matches.length > 0) {
+        // نمرر true لكي تظهر جملة المستخدم في الشات
+        selectService(matches[0].name, text, true);
+    }
+    input.value = "";
 }
 
 function handleSend() {
@@ -377,7 +397,7 @@ function handleSend() {
         if (matches.length > 1) {
             let html = `🔍 لقيت أكتر من حاجة متعلقة بسؤالك، تحب تختار إيه؟<br><br>`;
             matches.forEach(m => { 
-                html += `<button class="option-btn" onclick="selectService('${m.name}', '${text}')">${m.name}</button>`; 
+                html += `<button class="option-btn" onclick="selectService('${m.name}', '${text}', true)">${m.name}</button>`; 
             });
             html += `<button class="all-services-btn" onclick="showAllServices()">📋 مش ده؟ عرض كل الخدمات</button>`;
             addMessage(html, "bot");
@@ -389,8 +409,11 @@ function handleSend() {
     }, 1000);
 }
 
-function selectService(name, originalText) {
-    addMessage(name, "user");
+function selectService(name, originalText, fromButton = false) {
+    // 👇 نعرض رسالة user بس لو جاية من زر
+    if (fromButton) {
+    addMessage("تمام، عايز " + name, "user");
+}
     
     const s = services[name];
     const norm = originalText ? normalize(originalText) : "";
@@ -404,7 +427,7 @@ function selectService(name, originalText) {
 
     showTyping();
 
-    let responseDelay = (name === "اعرفني") ? 1800 : 600;
+    let responseDelay = (name === "اعرفني") ? 1500 : 600;
 
     setTimeout(() => { 
         removeTyping();
@@ -419,7 +442,8 @@ function selectService(name, originalText) {
         
         if (name !== "اعرفني") {
             setTimeout(() => {
-                const fallbackMsg = `ممكن أكون فهمت سؤالك بشكل مختلف 🤍<br>تقدر تتصفح كل الخدمات المتاحة وتختار اللي يناسبك 👇<br><button class="all-services-btn" onclick="showAllServices()">📋 عرض كل الخدمات</button>`;
+                const fallbackMsg = `ممكن أكون فهمت سؤالك بشكل مختلف 🤍
+تقدر تتصفح كل الخدمات المتاحة وتختار اللي يناسبك 👇<br><button class="all-services-btn" onclick="showAllServices()">📋 عرض كل الخدمات</button>`;
                 addMessage(fallbackMsg, "bot");
             }, 1200);
         }
