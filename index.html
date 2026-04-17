@@ -217,7 +217,32 @@ const services = {
         link: "https://drive.google.com/file/d/1_wcg5FHGzxzuaglEK0c_13QXpb8XcBqd/view?usp=drivesdk",
         msg: "ألف مبروك ما جالك.. يتربى في عزكم ويجعله قدم السعد! عشان تطلع شهادة الميلاد وتثبت المولود، دي الخطوات والورق المطلوب منك بالظبط:"
     },
+    
+"التأمين الصحي": {
+    keywords: [
+        "تأمين", "التأمين", "التأمين الصحي", "علاج", "بطاقة تأمين",
+        "كشف تأمين", "مستشفى تأمين", "عيادة تأمين", "نظام التأمين",
+        "التامين", "تامين", "تامين صحي", "تأمين", "تأمين صحي"
+    ],
+    link: null,
+    msg: `
+💙 <b>خدمات التأمين الصحي</b><br><br>
 
+لو محتاج تكشف أو تفتح ملف تأمين صحي، تقدر تروح لأقرب فرع ليك من الفروع دي 👇<br><br>
+
+📍 <b>القاهرة</b><br>
+<a href="https://www.google.com/maps/search/?api=1&query=هيئة+التأمين+الصحي+القاهرة" target="_blank" class="btn-link">فتح موقع التأمين الصحي - القاهرة</a>
+
+📍 <b>الجيزة</b><br>
+<a href="https://www.google.com/maps/search/?api=1&query=هيئة+التأمين+الصحي+الجيزة" target="_blank" class="btn-link">فتح موقع التأمين الصحي - الجيزة</a>
+
+📍 <b>القليوبية</b><br>
+<a href="https://www.google.com/maps/search/?api=1&query=هيئة+التأمين+الصحي+القليوبية" target="_blank" class="btn-link">فتح موقع التأمين الصحي - القليوبية</a>
+
+<br>
+💡 اختار المحافظة الأقرب ليك واضغط على الزر علشان يفتحلك المكان مباشرة على الخريطة
+`
+}
     "تسجيل الوفيات": {
         keywords: [
             "وفاة", "وفاه", "وفات", "مات", "توفى", "توفي", "توفاه", "المتوفي", 
@@ -447,7 +472,7 @@ function selectService(name, originalText, fromButton = false) {
             mainResponse += `<br><a href="${s.link}" target="_blank" class="btn-link">فتح خدمة ${name}</a>`;
         }
         
-        let customClass = (name === "اعرفني") ? "about-card" : "";
+        let customClass = (name === "اعرفني" || name === "التأمين الصحي") ? "about-card" : "";
         addMessage(mainResponse, "bot", customClass); 
         
         if (name !== "اعرفني") {
