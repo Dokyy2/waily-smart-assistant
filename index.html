@@ -566,35 +566,7 @@ window.onload = function() {
         showTyping();
         setTimeout(() => {
             removeTyping();
-            const welcomeMsg = `
-                👋 أهلاً بيك<br><br>
-                لو محتار تبدأ منين أو مش عارف الإجراءات تمشي إزاي… أنا هنا علشان أساعدك 🤍<br><br>
-                💬 قولّي عايز تعمل إيه<br>
-                وأنا هقولك تعمل إيه خطوة خطوة بشكل بسيط وواضح<br><br>
-                ✨ <b>جرب تدوس هنا دلوقتي:</b><br>
-                <span 
-                    onclick="quickSend('عايز أطلع شهادة ميلاد')" 
-                    style="
-                        color:#2563eb;
-                        font-weight:700;
-                        cursor:pointer;
-                        background:#e0f2fe;
-                        padding:6px 12px;
-                        border-radius:12px;
-                        display:inline-block;
-                        margin-top:6px;
-                        border:1px solid #93c5fd;
-                        transition:0.2s;
-                    "
-                    onmouseover="this.style.background='#bfdbfe'"
-                    onmouseout="this.style.background='#e0f2fe'"
-                >
-                👉 عايز أطلع شهادة ميلاد
-                </span><br><br>
-                🔹 خدمات تقدر تسأل عنها:<br>
-                التطعيمات - الوفاة - تنمية الأسرة - عن المساعد
-            `;
-            addMessage(welcomeMsg, "bot", "welcome-special");
+            addMessage(getWelcomeMessage(), "bot", "welcome-special");
         }, 1500); 
     }, 1000); 
 };
