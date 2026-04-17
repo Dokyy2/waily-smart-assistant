@@ -477,33 +477,35 @@ function selectService(name, originalText, fromButton = false) {
 
     let responseDelay = (name === "اعرفني") ? 1500 : 600;
 
-    setTimeout(() => { 
-        removeTyping();
-        let mainResponse = `${extra}${s.msg}`;
-        
-        if (s.link && s.link !== null) {
-            mainResponse += `<br><a href="${s.link}" target="_blank" class="btn-link">فتح خدمة ${name}</a>`;
-        }
-        
-        let customClass = (name === "اعرفني" || name === "التأمين الصحي") ? "about-card" : "";
-        addMessage(mainResponse, "bot", customClass); 
-        
-        // 👇 لو التأمين الصحي → اعرض الترحيب بعده
-if (name === "التأمين الصحي") {
-    setTimeout(() => {
-        addMessage(getWelcomeMessage(), "bot", "welcome-special");
-    }, 1200);
-}
+setTimeout(() => { 
+    removeTyping();
+    let mainResponse = `${extra}${s.msg}`;
+    
+    if (s.link && s.link !== null) {
+        mainResponse += `<br><a href="${s.link}" target="_blank" class="btn-link">فتح خدمة ${name}</a>`;
+    }
+    
+    let customClass = (name === "اعرفني" || name === "التأمين الصحي") ? "about-card" : "";
+    addMessage(mainResponse, "bot", customClass); 
+    
+    // 👇 لو التأمين الصحي → اعرض الترحيب بعده
+    if (name === "التأمين الصحي") {
+        setTimeout(() => {
+            addMessage(getWelcomeMessage(), "bot", "welcome-special");
+        }, 1200);
+    }
 
-// 👇 باقي الخدمات → fallback عادي
-else if (name !== "اعرفني") {
-    setTimeout(() => {
-        const fallbackMsg = `لو ده مش اللي تقصده 🤍<br>
+    // 👇 باقي الخدمات → fallback عادي
+    else if (name !== "اعرفني") {
+        setTimeout(() => {
+            const fallbackMsg = `لو ده مش اللي تقصده 🤍<br>
 تقدر تختار من الخدمات المتاحة بسهولة 👇<br>
 <button class="all-services-btn" onclick="showAllServices()">📋 عرض كل الخدمات</button>`;
-        addMessage(fallbackMsg, "bot");
-    }, 1200);
-}
+            addMessage(fallbackMsg, "bot");
+        }, 1200);
+    }
+
+}, responseDelay);
 
 function addMessage(text, type, customClass = "") {
     let chat = document.getElementById("chatArea");
